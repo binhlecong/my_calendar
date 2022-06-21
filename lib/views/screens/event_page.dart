@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_calendar/db_helper.dart';
-import 'package:my_calendar/models/event.dart';
+import 'package:my_calendar/data/db_helper.dart';
+import 'package:my_calendar/data/models/event.dart';
 
 // Datetime input
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:my_calendar/widgets/color_selector.dart';
+import 'package:my_calendar/views/widgets/color_selector.dart';
 
 class EventPage extends StatefulWidget {
   final Event event;

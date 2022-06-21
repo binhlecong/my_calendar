@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_calendar/db_helper.dart';
-import 'package:my_calendar/models/event.dart';
-import 'package:my_calendar/widgets/event_card.dart';
-import 'package:my_calendar/screens/event_page.dart';
+import 'package:my_calendar/data/db_helper.dart';
+import 'package:my_calendar/data/models/event.dart';
+import 'package:my_calendar/views/widgets/event_card.dart';
+import 'package:my_calendar/views/screens/event_page.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
@@ -42,22 +42,22 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
         collapsed: IconButton(
           icon: Icon(Icons.add_chart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return EventPage(
-                      event: null,
-                    );
-                  },
-                ),
-              ).then((value) async {
-                List<Event> events = await _dbHelper.getEvents();
-                updateAppointment(events);
-                setState(() {});
-              });
-            },
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return EventPage(
+                    event: null,
+                  );
+                },
+              ),
+            ).then((value) async {
+              List<Event> events = await _dbHelper.getEvents();
+              updateAppointment(events);
+              setState(() {});
+            });
+          },
         ),
         panel: Expanded(
           child: Padding(

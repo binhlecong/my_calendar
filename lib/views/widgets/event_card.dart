@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_calendar/models/event.dart';
+import 'package:my_calendar/data/models/event.dart';
 
 class EventCard extends StatelessWidget {
   final int id;

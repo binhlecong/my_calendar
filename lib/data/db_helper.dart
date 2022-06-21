@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'models/event.dart';
+import '../data/models/event.dart';
 
 class DatabaseHelper {
   final eventTable = 'my_events';

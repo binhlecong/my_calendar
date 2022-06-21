@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_calendar/screens/home_page.dart';
+import 'package:my_calendar/views/screens/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
       title: 'My calendar',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
-        accentColor: Colors.purple.shade300,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+            .copyWith(secondary: Colors.purple.shade300),
       ),
       home: HomePage(),
     );
