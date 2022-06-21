@@ -85,75 +85,13 @@ class _EventPageState extends State<EventPage> {
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.fromLTRB(10, 30, 10, 30),
-          child: ListView(
+          child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      'Subject',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber.shade900,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: TextField(
-                      focusNode: _subjectFocus,
-                      onChanged: (value) async {
-                        _eventSubject = value;
-                      },
-                      onSubmitted: (value) async {
-                        _locationFocus.requestFocus();
-                      },
-                      style: TextStyle(fontSize: 24),
-                      decoration: InputDecoration(
-                        labelText: _eventSubject,
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(2),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              getSubjectInput(),
               SizedBox(
                 height: 30,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      'Location',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber.shade900,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: TextField(
-                      focusNode: _locationFocus,
-                      onChanged: (value) async {
-                        _eventLocation = value;
-                      },
-                      onSubmitted: (value) async {
-                        _startFocus.requestFocus();
-                      },
-                      style: TextStyle(fontSize: 24),
-                      decoration: InputDecoration(
-                        labelText: _eventLocation,
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(2),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              getLocationInput(),
               SizedBox(
                 height: 30,
               ),
@@ -287,60 +225,56 @@ class _EventPageState extends State<EventPage> {
                 ],
               ),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: TextButton.icon(
-                            icon: Icon(Icons.delete),
-                            label: Text('Delete'),
-                            onPressed: () async {
-                              await _dbHelper.delete(_eventId);
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: TextButton.icon(
-                            icon: Icon(
-                              Icons.check,
-                            ),
-                            label: Text('Save'),
-                            onPressed: () async {
-                              if (widget.event == null) {
-                                Event newEvent = Event(
-                                  startTime: _eventStart,
-                                  endTime: _eventEnd,
-                                  subject: _eventSubject,
-                                  location: _eventLocation,
-                                  color: _eventColor,
-                                );
-
-                                _eventId = await _dbHelper.insert(newEvent);
-                              } else {
-                                Event thisEvent =
-                                    await _dbHelper.getEvent(_eventId);
-                                thisEvent.startTime = _eventStart;
-                                thisEvent.endTime = _eventEnd;
-                                thisEvent.subject = _eventSubject;
-                                thisEvent.location = _eventLocation;
-                                thisEvent.color = _eventColor;
-
-                                _eventId = await _dbHelper.update(thisEvent);
-                              }
-
-                              setState(() {
-                                _contentVisile = true;
-                              });
-                              Navigator.pop(context);
-                            },
-                          ),
-                        )
-                      ],
+                    Expanded(
+                      child: TextButton.icon(
+                        icon: Icon(Icons.delete),
+                        label: Text('Delete'),
+                        onPressed: () async {
+                          await _dbHelper.delete(_eventId);
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
+                    Expanded(
+                      child: TextButton.icon(
+                        icon: Icon(
+                          Icons.check,
+                        ),
+                        label: Text('Save'),
+                        onPressed: () async {
+                          if (widget.event == null) {
+                            Event newEvent = Event(
+                              startTime: _eventStart,
+                              endTime: _eventEnd,
+                              subject: _eventSubject,
+                              location: _eventLocation,
+                              color: _eventColor,
+                            );
+
+                            _eventId = await _dbHelper.insert(newEvent);
+                          } else {
+                            Event thisEvent =
+                                await _dbHelper.getEvent(_eventId);
+                            thisEvent.startTime = _eventStart;
+                            thisEvent.endTime = _eventEnd;
+                            thisEvent.subject = _eventSubject;
+                            thisEvent.location = _eventLocation;
+                            thisEvent.color = _eventColor;
+
+                            _eventId = await _dbHelper.update(thisEvent);
+                          }
+
+                          setState(() {
+                            _contentVisile = true;
+                          });
+                          Navigator.pop(context);
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -348,6 +282,76 @@ class _EventPageState extends State<EventPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Row getLocationInput() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(
+            'Location',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.amber.shade900,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: TextField(
+            focusNode: _locationFocus,
+            onChanged: (value) async {
+              _eventLocation = value;
+            },
+            onSubmitted: (value) async {
+              _startFocus.requestFocus();
+            },
+            style: TextStyle(fontSize: 24),
+            decoration: InputDecoration(
+              labelText: _eventLocation,
+              isDense: true,
+              contentPadding: EdgeInsets.all(2),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row getSubjectInput() {
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Text(
+            'Subject',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.amber.shade900,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: TextField(
+            focusNode: _subjectFocus,
+            onChanged: (value) async {
+              _eventSubject = value;
+            },
+            onSubmitted: (value) async {
+              _locationFocus.requestFocus();
+            },
+            style: TextStyle(fontSize: 24),
+            decoration: InputDecoration(
+              labelText: _eventSubject,
+              isDense: true,
+              contentPadding: EdgeInsets.all(2),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

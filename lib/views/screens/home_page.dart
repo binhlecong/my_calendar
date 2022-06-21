@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_calendar/data/db_helper.dart';
 import 'package:my_calendar/data/models/event.dart';
-import 'package:my_calendar/views/widgets/event_card.dart';
 import 'package:my_calendar/views/screens/event_page.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class HomePage extends StatefulWidget {
